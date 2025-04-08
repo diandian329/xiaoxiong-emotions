@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天的小熊是哪一種？</title>
+    <style>
+        body {
+            font-family: "Segoe UI", "微軟正黑體", sans-serif;
+            background-color: #fff8f0;
+            text-align: center;
+            padding: 2rem;
+            color: #4b3832;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: #f9a825;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .emotion-img {
+            width: 250px;
+            margin-top: 1rem;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎡 今天的小熊是哪一種？</h1>
+    <button onclick="spinWheel()">開始轉盤</button>
+    <div class="result" id="result"></div>
+    <img id="emotionImage" class="emotion-img" src="" alt="" style="display:none;">
+
+    <script>
+        const emotions = [
+            { name: "開心小熊", description: "今天的小熊超開心，準備好來玩囉！", image: "happy.jpg" },
+{ name: "哭哭小熊", description: "有點委屈的小熊想抱抱～", image: "cry.jpg" },
+{ name: "撒嬌小熊", description: "小熊撒嬌中，需要你的關心和親親。", image: "cute.jpg" },
+{ name: "傻眼小熊", description: "小熊也不知道發生什麼事...傻眼了。", image: "shocked.jpg" },
+{ name: "感激小熊", description: "謝謝你陪著我～小熊心裡暖暖的。", image: "grateful.jpg" },
+{ name: "抱歉小熊", description: "對不起…小熊想修補一點點小錯誤。", image: "sorry.jpg" },
+{ name: "害羞小熊", description: "不太敢開口的小熊，需要多一點鼓勵。", image: "shy.jpg" },
+{ name: "崩潰小熊", description: "小熊受不了啦～抱緊處理中！！", image: "collapse.jpg" }
+        ];
+
+        function spinWheel() {
+            const randomIndex = Math.floor(Math.random() * emotions.length);
+            const chosen = emotions[randomIndex];
+            document.getElementById("result").innerHTML = `<div>${chosen.name}</div><div>${chosen.description}</div>`;
+            const img = document.getElementById("emotionImage");
+            img.src = chosen.image;
+            img.style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -6,63 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>今天的小熊是哪一種？</title>
     <style>
-        body {
-            font-family: "Segoe UI", "微軟正黑體", sans-serif;
-            background-color: #fff8f0;
-            text-align: center;
-            padding: 2rem;
-            color: #4b3832;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        button {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background-color: #f9a825;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .result {
-            margin-top: 2rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .emotion-img {
-            width: 250px;
-            margin-top: 1rem;
-            border-radius: 15px;
-        }
+        body { font-family: "Helvetica Neue", sans-serif; background: #fffbe9; text-align: center; padding: 20px; }
+        h1 { color: #8b5e3c; }
+        .emotion-wheel img { width: 80px; margin: 10px; cursor: pointer; border-radius: 50%; border: 3px solid transparent; }
+        .emotion-wheel img:hover { border: 3px solid #ffcb8e; }
+        .card { display: none; background: #fff5d6; border: 2px solid #ffe2a8; padding: 20px; margin-top: 30px; border-radius: 12px; }
     </style>
 </head>
 <body>
-    <h1>🎡 今天的小熊是哪一種？</h1>
-    <button onclick="spinWheel()">開始轉盤</button>
-    <div class="result" id="result"></div>
-    <img id="emotionImage" class="emotion-img" src="" alt="" style="display:none;">
+    <h1>今天的小熊是哪一種？</h1>
+    <div class="emotion-wheel">
+        <img src="cry.jpg" alt="哭哭" onclick="showCard('cry')">
+        <img src="happy.jpg" alt="開心" onclick="showCard('happy')">
+        <img src="dazed.jpg" alt="傻眼" onclick="showCard('dazed')">
+        <img src="grateful.jpg" alt="感激" onclick="showCard('grateful')">
+        <img src="clingy.jpg" alt="撒嬌" onclick="showCard('clingy')">
+        <img src="shy.jpg" alt="害羞" onclick="showCard('shy')">
+        <img src="sorry.jpg" alt="抱歉" onclick="showCard('sorry')">
+        <img src="overwhelmed.jpg" alt="崩潰" onclick="showCard('overwhelmed')">
+    </div>
+
+    <div id="emotion-card" class="card">
+        <h2 id="card-title">小熊的故事</h2>
+        <p id="card-story"></p>
+        <p><strong>🌟 小任務：</strong><span id="card-task"></span></p>
+    </div>
 
     <script>
-        const emotions = [
-            { name: "開心小熊", description: "今天的小熊超開心，準備好來玩囉！", image: "happy.jpg" },
-{ name: "哭哭小熊", description: "有點委屈的小熊想抱抱～", image: "cry.jpg" },
-{ name: "撒嬌小熊", description: "小熊撒嬌中，需要你的關心和親親。", image: "cute.jpg" },
-{ name: "傻眼小熊", description: "小熊也不知道發生什麼事...傻眼了。", image: "shocked.jpg" },
-{ name: "感激小熊", description: "謝謝你陪著我～小熊心裡暖暖的。", image: "grateful.jpg" },
-{ name: "抱歉小熊", description: "對不起…小熊想修補一點點小錯誤。", image: "sorry.jpg" },
-{ name: "害羞小熊", description: "不太敢開口的小熊，需要多一點鼓勵。", image: "shy.jpg" },
-{ name: "崩潰小熊", description: "小熊受不了啦～抱緊處理中！！", image: "collapse.jpg" }
-        ];
+        const stories = {
+            cry: {
+                title: "哭哭小熊",
+                story: "今天的小熊心裡有點酸，因為玩具壞掉了。牠坐在角落，流下幾滴眼淚。",
+                task: "幫小熊畫一張「修好玩具」的圖，讓牠知道有人會陪著牠一起修好。"
+            },
+            happy: {
+                title: "開心小熊",
+                story: "小熊今天吃到了最喜歡的草莓果凍，還收到媽媽一個大大的擁抱！",
+                task: "寫下三件今天讓你也覺得開心的小事，和小熊一起開心！"
+            },
+            dazed: {
+                title: "傻眼小熊",
+                story: "有人不小心把湯灑在小熊的頭上，小熊整隻凍住了...",
+                task: "幫小熊設計一頂防潑水的帽子！然後深呼吸～我們再想想怎麼處理。"
+            },
+            grateful: {
+                title: "感激小熊",
+                story: "今天有朋友主動幫小熊撿起掉地上的畫筆，小熊覺得好溫暖。",
+                task: "想一想今天誰幫助了你？畫一張小卡片送給他／她！"
+            },
+            clingy: {
+                title: "撒嬌小熊",
+                story: "小熊今天想黏在媽媽懷裡不下來，什麼都不想做，只想抱抱。",
+                task: "找一個你喜歡的人，說出：「我想要抱抱～」"
+            },
+            shy: {
+                title: "害羞小熊",
+                story: "小熊第一次上台唱歌，心跳得好快好快，但大家都好溫柔地看著牠。",
+                task: "勇敢做一件平常會害羞的事情，完成後大聲說：「我做到了！」"
+            },
+            sorry: {
+                title: "抱歉小熊",
+                story: "小熊不小心把朋友的積木踢倒了，低頭說了一句：「對不起。」",
+                task: "如果你今天有一件事覺得抱歉，現在就試著說出來，或畫出你的心情。"
+            },
+            overwhelmed: {
+                title: "崩潰小熊",
+                story: "積木一直倒，畫也塗錯，小熊「哇——」大叫起來。",
+                task: "找一個你安心的地方，做 3 次大大的深呼吸，然後畫出你內心的小風暴。"
+            }
+        };
 
-        function spinWheel() {
-            const randomIndex = Math.floor(Math.random() * emotions.length);
-            const chosen = emotions[randomIndex];
-            document.getElementById("result").innerHTML = `<div>${chosen.name}</div><div>${chosen.description}</div>`;
-            const img = document.getElementById("emotionImage");
-            img.src = chosen.image;
-            img.style.display = "block";
+        function showCard(emotion) {
+            document.getElementById('card-title').innerText = stories[emotion].title;
+            document.getElementById('card-story').innerText = stories[emotion].story;
+            document.getElementById('card-task').innerText = stories[emotion].task;
+            document.getElementById('emotion-card').style.display = 'block';
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     </script>
 </body>
